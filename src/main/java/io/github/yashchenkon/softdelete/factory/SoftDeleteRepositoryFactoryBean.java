@@ -1,6 +1,9 @@
 package io.github.yashchenkon.softdelete.factory;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
+import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
 import io.github.yashchenkon.softdelete.repository.SoftDeleteRepository;
 
@@ -11,5 +14,10 @@ public class SoftDeleteRepositoryFactoryBean<T extends SoftDeleteRepository<S, I
 
     public SoftDeleteRepositoryFactoryBean(final Class<? extends T> repositoryInterface) {
         super(repositoryInterface);
+    }
+
+    @Override
+    protected RepositoryFactorySupport createRepositoryFactory(final EntityManager entityManager) {
+        return new SoftDeleteRepositoryFactory(entityManager);
     }
 }
