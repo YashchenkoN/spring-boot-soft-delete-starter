@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 
+import io.github.yashchenkon.softdelete.entity.BaseEntity;
 import io.github.yashchenkon.softdelete.repository.SoftDeleteRepository;
 import io.github.yashchenkon.softdelete.repository.SoftDeleteRepositoryImpl;
 
 /**
  * @author Mykola Yashchenko
  */
-public class SoftDeleteRepositoryFactory extends JpaRepositoryFactory {
+public class SoftDeleteRepositoryFactory<T extends BaseEntity> extends JpaRepositoryFactory {
 
     private final EntityManager entityManager;
 
@@ -25,7 +26,7 @@ public class SoftDeleteRepositoryFactory extends JpaRepositoryFactory {
     @Override
     protected Object getTargetRepository(final RepositoryInformation information) {
         if (isSoftDeleteRepository(information.getRepositoryInterface())) {
-            return new SoftDeleteRepositoryImpl<>(information.getDomainType(), entityManager);
+            return new SoftDeleteRepositoryImpl<>((Class<T>)information.getDomainType(), entityManager);
         }
 
         return super.getTargetRepository(information);

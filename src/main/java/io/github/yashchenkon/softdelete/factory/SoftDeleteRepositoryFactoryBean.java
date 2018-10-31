@@ -20,6 +20,6 @@ public class SoftDeleteRepositoryFactoryBean<T extends SoftDeleteRepository<S, I
 
     @Override
     protected RepositoryFactorySupport createRepositoryFactory(final EntityManager entityManager) {
-        return new SoftDeleteRepositoryFactory(entityManager);
+        return new SoftDeleteRepositoryFactory<S>(entityManager);
     }
 }
