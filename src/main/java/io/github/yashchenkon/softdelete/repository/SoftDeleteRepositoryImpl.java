@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+import io.github.yashchenkon.softdelete.entity.BaseEntity;
+
 /**
  * @author Mykola Yashchenko
  */
-public class SoftDeleteRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> {
+public class SoftDeleteRepositoryImpl<T extends BaseEntity, ID> extends SimpleJpaRepository<T, ID> {
 
     private final EntityManager entityManager;
 
